@@ -1,0 +1,13 @@
+body {
+	width: 600px;
+	height: 400px;
+	margin: 0 auto;
+	background-color: black;
+	color: white;
+}
+
+.table {
+	font-family: Arial, Helvetica, sans-serif;
+	border: solid 1px red;
+	box-sizing: border-box;
+}
