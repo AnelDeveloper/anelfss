@@ -1231,3 +1231,52 @@ section
 	font-weight: 500;
 	color: #454545;
 }
+
+
+
+
+
+
+
+
+
+
+.login.active .login_button
+{
+	height: 74px;
+	cursor: default;
+	padding-left: 48px;
+
+
+}
+
+
+.modal-content{
+	width: 700px;
+	height: 400px;
+	font-size: 12px;
+	font-weight: 500;
+	font-style: bold;
+	color: #767271;
+}
+
+.modal-body{
+	background: white;
+
+}
+
+.modal-footer{
+	background: white;
+
+}
+
+.error{
+	color: red;
+}
+
+
+.modal-header{
+	text-transform: uppercase;
+	background: orange;
+	
+}
