@@ -13,6 +13,7 @@
 <link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/animate.css">
 <link rel="stylesheet" type="text/css" href="styles/main_styles.css">
 <link rel="stylesheet" type="text/css" href="styles/responsive.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/1.3.1/css/toastr.css%22%3E">
 </head>
 <body>
 
@@ -40,7 +41,7 @@
 					<li><a href="services.html">Services<div><div></div><div></div><div></div></div></a></li>
 					<li><a href="contact.html">Contact<div><div></div><div></div><div></div></div></a></li>
 					<li><a href="table.html">Datatable</a></li>
-					<li><a href="#exampleModalCenter"  data-toggle="modal" >Log in / Register in </a></li>
+					<li><a href="registration.php" >Log in / Register in </a></li>
 				</ul>
 			</nav>
 
@@ -102,6 +103,7 @@
 		<!-- Home Slider -->
 		<div class="home_slider_container">
 			<div class="owl-carousel owl-theme home_slider">
+
 				
 				<!-- Slide -->
 				<div class="owl-item home_slide">
@@ -121,7 +123,7 @@
 											
 												You have to try everything you want. You only have one chance, remember that.</p>
 										</div>
-										<div class="home_link"><a href="#">View our offers</a></div>
+										<div class="home_link"><a href="#Anel">View our offers</a></div>
 									</div>
 								</div>
 							</div>
@@ -198,6 +200,8 @@
 	</div>
 
 	<!-- Services -->
+	<section id="Anel">
+
 
 	<div class="services" id="services">
 		<div class="parallax_background" data-image-src="images/services.jpg"></div>
@@ -213,6 +217,8 @@
 			<div class="row services_row">
 				<div class="col">
 					<div class="section_expander">
+
+					</section>
 
 						<!-- Services Slider -->
 						<div class="services_slider_container">
@@ -475,13 +481,14 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 <script src="plugins/scrollTo/jquery.scrollTo.min.js"></script>
 <script src="js/custom.js"></script>
 <script src= "https://cdn.jsdelivr.net/npm/jquery-validation@1.19.1/dist/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/1.3.1/js/toastr.js%22%3E"></script>
 
 
  <!--- .log in --->
  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered" role="document">
 	<div class="modal-content">
-	  <form id="login">
+	  <form id="login" action="index.php" method="POST">
 	  <div class="modal-header">
 		<h5 class="modal-title" id="exampleModalCenterTitle">Prijava</h5>
 		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -520,7 +527,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
  <div class="modal fade" id="register" tabindex="-1" role="dialog" aria-labelledby="registerTitle" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered" role="document">
 		  <div class="modal-content">
-			<form id="registerid">
+			<form id="registerid" action="index.php" method="POST">
 			<div class="modal-header">
 			  <h5 class="modal-title" id="registerTitle">Registracija</h5>
 			  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -578,7 +585,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
 		function open_modal(){
 		  console.log('test 123');
-		  $('exampleModalCenter').modal('toggle');
+		  $('registration').modal('toggle');
 		}
 
 
@@ -618,9 +625,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		});
 
 
-	
-
-
 
 	
 	</script>
@@ -634,19 +638,19 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	$(function() {
 	   $("#registerid").validate({
 		rules: {
-			  ime: {
+			firstname: {
 				required: true,
 				minlength: 3
 			  },
-			  prezime: {
+			  lastname: {
 				required: true,
 				minlength: 5
 			  },
-			  reg1: {
+			   email: {
 				required: true,
 				email: true
 			  },
-			  regpw: {
+			  password: {
 				required: true,
 				minlength: 8
 			  },
@@ -655,23 +659,23 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
                 }
 	   },
 	messages: {
-			 ime: {
+			 firstname: {
 			   required: "Molimo vas unesite vaše ime",
 			   email: "Vaš mora sadržati najmanje 3 slova."
 			 },
-			 prezime: {
+			 lastname: {
 			   required: "Molimo vas unesite vaše prezime",
 			   minlength: "Vaše prezime mora sadržati najmanje 5 slova."
 			 },
-			 reg1: {
+			 email: {
 			   required: "Vaš Email je obavezan za registraciju.",
 			   email: "Vaš Email je neispravan"
 			 },
-			 regpw: {
+			 password: {
 			   required: "Molimo vas unesite šifru.",
 			   minlength: "Vaša šifra mora sadržati minimalno 8 slova"
 			 },
-			 agr1: {
+			 phonenumber: {
 			   aggre: "Niste prihvatili uslove koristenja!"
 			 },
 			 checkboxgg: {
@@ -679,19 +683,18 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
                }
 	},
 
-	  submitHandler: function(form) {
-		form.submit();
-	}
+	submitHandler: function(form) {
+               $.post('rest/users', $("#login").serialize()).done(function(){
+                 toastr.success('Uspješno ste prijavljeni');
+                  $('#registerid').modal('toggle');
+                  get_users();
+               }).fail(function(){
+                 toastr.error('Pokušajte malo kasnije');
+               });
+          },
  });
 });
-
-
 </script>
-
-
-
-
-
 
 
 

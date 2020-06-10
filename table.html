@@ -161,6 +161,151 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 </div>
     </div>
 </footer>
+<br>
+<br>
+
+<main id="main">
+    <br>
+        <table class="table">
+             <thead>
+               <tr align="center">
+                 <th scope="col">Ime</th>
+                 <th scope="col">Prezime</th>
+                 <th scope="col">Email</th>
+                 <th scope="col">Šifra</th>
+                 <th scope="col">Telefon</th>
+                 <th scope="col"></th>
+               </tr>
+             </thead>
+             <tbody id="table_content">
+             </tbody>
+           </table>
+    
+    
+    <script>
+          $(function() {
+             $("#login").validate({
+              rules: {
+                    logemail: {
+                      required: true,
+                      email: true
+                    },
+                    logpw: {
+                      required: true,
+                      minlength: 5
+                    }
+             },
+          messages: {
+                   logemail: {
+                     required: "Molimo vas unesite vaš email",
+                     email: "Vaš email nije ispravan."
+                   },
+                   logpw: {
+                     required: "Molimo vas unesite vašu šifru",
+                     minlength: "Vaša šifra nije ispravna."
+                   }
+                   },
+        });
+    
+          });
+          </script>
+    
+          <!-- register -->
+          <script>
+    
+          get_users();
+          function get_users(){
+           $.get( "rest/users", function( data ) {    //call rest/students from index.php to get data
+             var html = '';
+             for(var i = 0; i < data.length; i++){
+               html += '<tr align="center"> <td>' + data[i].ime + '</td>';
+               html += '<td>' + data[i].prezime + '</td>';
+               html += '<td>' + data[i].reg1 + '</td>';
+               html += '<td>' + data[i].regpw + '</td>';
+               html += '<td>' + data[i].agr1 + '</td>';
+               html += '<td><button type="button" class="btn btn-danger" onclick="delete_user('+data[i].id+');">Delete</button></td> </tr>';
+             }
+             $("#table_content").html(html);
+           });
+         }
+         student:
+         function delete_user(id){
+         $.ajax({
+         url: 'rest/user/'+id,
+         method: 'DELETE',
+         success: function(result) {
+         toastr.success('Deleted');
+         get_users();
+         },
+         error: function(){
+         toastr.success('Not deleted');
+         }
+         });
+         }
+    
+    
+    
+    
+          $(function() {
+          $("#registerid").validate({
+          rules: {
+            ime: {
+              required: true,
+              minlength: 3
+            },
+            prezime: {
+              required: true,
+              minlength: 5
+            },
+            regemail: {
+              required: true,
+              email: true
+            },
+            regpw: {
+              required: true,
+              minlength: 8
+            },
+            uslov: {
+              required: true
+            }
+          },
+          messages: {
+           ime: {
+             required: "Molimo vas unesite vaše ime",
+             email: "Vaš mora sadržati najmanje 3 slova."
+           },
+           prezime: {
+             required: "Molimo vas unesite vaše prezime",
+             minlength: "Vaše prezime mora sadržati najmanje 5 slova."
+           },
+           regemail: {
+             required: "Vaš Email je obavezan za registraciju.",
+             email: "Vaš Email je neispravan"
+           },
+           regpw: {
+             required: "Molimo vas unesite šifru.",
+             minlength: "Vaša šifra mora sadržati minimalno 8 slova"
+           },
+           uslov: {
+             required: "Niste prihvatili uslove koristenja!"
+           }
+           },
+    
+           
+    
+          });
+          });
+    
+     </script>
+    
+
+
+
+
+
+
+
+
 
 
 
